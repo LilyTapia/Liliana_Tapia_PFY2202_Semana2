@@ -1,190 +1,158 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
-import auto1Image from '../assets/img/Auto1.jpg'
-import auto2Image from '../assets/img/Auto2.webp'
-import auto3Image from '../assets/img/Auto3.jpg'
+import bannerImage from '../assets/img/Banner.png'
 import FinanceModal from '../components/FinanceModal.jsx'
-
-// Catálogo base usado para poblar las tarjetas del home.
-const featuredVehicles = [
-  {
-    name: 'Aria EV',
-    category: 'SUV eléctrica',
-    price: 'Desde $31.990.000',
-    autonomy: '520 km de autonomía urbana',
-    highlight: 'Ideal para familias que buscan eficiencia y seguridad.',
-    image: auto1Image,
-    imageAlt: 'SUV Aria EV en color azul marino estacionada en una calle urbana',
-    finance: [
-      {
-        label: 'Plan SmartDrive',
-        details: {
-          pie: '$6.398.000 (20%)',
-          cuota: '$389.000',
-          plazo: '48 meses',
-          tasa: '1,25% mensual referencial',
-        },
-      },
-      {
-        label: 'Plan Cero Estrés',
-        details: {
-          pie: '$3.199.000 (10%)',
-          cuota: '$479.000',
-          plazo: '60 meses',
-          tasa: '1,45% mensual referencial',
-        },
-      },
-    ],
-  },
-  {
-    name: 'Velocity Hybrid',
-    category: 'Sedán híbrido',
-    price: 'Desde $25.490.000',
-    autonomy: '24 km/l combinados',
-    highlight: 'Transición suave entre motor eléctrico y gasolina.',
-    image: auto2Image,
-    imageAlt: 'Sedán Velocity Hybrid plateado frente a un edificio moderno',
-    finance: [
-      {
-        label: 'Plan Sustentable',
-        details: {
-          pie: '$5.098.000 (20%)',
-          cuota: '$337.000',
-          plazo: '48 meses',
-          tasa: '1,18% mensual referencial',
-        },
-      },
-      {
-        label: 'Plan Flex',
-        details: {
-          pie: '$2.549.000 (10%)',
-          cuota: '$409.000',
-          plazo: '60 meses',
-          tasa: '1,38% mensual referencial',
-        },
-      },
-    ],
-  },
-  {
-    name: 'Forza Trail',
-    category: 'Pickup 4x4',
-    price: 'Desde $35.990.000',
-    autonomy: '1.200 kg de carga útil',
-    highlight: 'Desempeño robusto con asistencias inteligentes.',
-    image: auto3Image,
-    imageAlt: 'Pickup Forza Trail color rojo avanzando por un camino de montaña',
-    finance: [
-      {
-        label: 'Plan Terreno',
-        details: {
-          pie: '$7.198.000 (20%)',
-          cuota: '$469.000',
-          plazo: '48 meses',
-          tasa: '1,30% mensual referencial',
-        },
-      },
-      {
-        label: 'Plan Full Equip',
-        details: {
-          pie: '$3.599.000 (10%)',
-          cuota: '$559.000',
-          plazo: '60 meses',
-          tasa: '1,48% mensual referencial',
-        },
-      },
-    ],
-  },
-]
+import VehicleCard from '../components/VehicleCard.jsx'
+import { useVehicles } from '../context/VehicleContext.jsx'
 
 function Home() {
-  // Controla el vehículo seleccionado para abrir el modal con los planes.
+  const { vehicles } = useVehicles()
   const [selectedVehicle, setSelectedVehicle] = useState(null)
 
+  const featuredVehicles = useMemo(
+    () => vehicles.filter((vehicle) => vehicle.isFeatured).slice(0, 6),
+    [vehicles],
+  )
+
   return (
-    <div className="page home">
-      <section className="brand-intro">
-        <span className="brand-intro__tag">NovaDrive</span>
-        <h1 className="brand-intro__title">Vehículos que inspiran confianza</h1>
-        <p className="brand-intro__lead">
-          Encontramos el modelo ideal para tu estilo de vida, con opciones
-          eléctricas, híbridas y combustión eficientes.
-        </p>
-        <ul className="brand-intro__highlights">
-          <li>Mejor desempeño en la carretera y en la ciudad.</li>
-          <li>Entrega garantizada en 48 horas en la Región Metropolitana.</li>
-        </ul>
-        <div className="brand-intro__cta">
-          <a className="cta-button" href="#inventory">
-            Explorar catálogo
-          </a>
+    <div className="space-y-12 pb-24">
+      <section className="relative overflow-hidden rounded-[2.5rem] bg-slate-900 shadow-brand-lg">
+        <img
+          src={bannerImage}
+          alt="SUV destacado en promoción NovaDrive"
+          className="h-auto w-full object-contain"
+        />
+      </section>
+
+      <section className="rounded-3xl border border-slate-200/70 bg-white p-6 shadow-brand-lg sm:p-10">
+        <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
+          <div className="max-w-2xl space-y-4">
+            <span className="inline-flex rounded-full bg-brand-100 px-3 py-1 text-sm font-semibold uppercase tracking-widest text-brand-700">
+              NovaDrive
+            </span>
+            <h1 className="text-4xl font-semibold text-slate-900 sm:text-5xl">
+              Vehículos que inspiran confianza
+            </h1>
+            <p className="text-lg text-slate-600">
+              Experiencia rápida y transparente para elegir tu próximo vehículo, con asesoría
+              experta en cada etapa.
+            </p>
+            <div className="flex flex-wrap gap-4">
+              <a
+                href="#inventory"
+                className="inline-flex items-center gap-2 rounded-full bg-brand-500 px-6 py-3 text-sm font-semibold text-white transition hover:bg-brand-600"
+              >
+                Explorar catálogo
+              </a>
+              <Link
+                to="/ingresar-vehiculo"
+                className="inline-flex items-center gap-2 rounded-full border border-brand-500 px-6 py-3 text-sm font-semibold text-brand-600 transition hover:bg-brand-50"
+              >
+                Gestionar inventario
+              </Link>
+            </div>
+            <span className="mt-4 inline-flex rounded-full bg-brand-50 px-3 py-1 text-xs font-semibold uppercase tracking-widest text-brand-600">
+              Asesoría personalizada
+            </span>
+            <ul className="space-y-3 text-slate-600">
+              <li className="flex items-start gap-3">
+                <span className="mt-1 inline-flex h-2.5 w-2.5 rounded-full bg-brand-500" />
+                Mejor desempeño en carretera y ciudad gracias a tecnologías de seguridad avanzada.
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="mt-1 inline-flex h-2.5 w-2.5 rounded-full bg-brand-500" />
+                Entrega garantizada en 48 horas en la Región Metropolitana con soporte permanente.
+              </li>
+            </ul>
+          </div>
+          <Link
+            to="/inventario"
+            className="inline-flex items-center justify-center gap-2 rounded-full bg-slate-900 px-6 py-3 text-sm font-semibold text-white transition hover:bg-slate-800"
+          >
+            Ver inventario
+          </Link>
         </div>
       </section>
 
-      <section className="hero-card">
-        <h2 className="section-title">Tu próximo vehículo está aquí</h2>
-        <p>
-          Reserva en línea, agenda tu test drive y recibe acompañamiento
-          experto en cada etapa, desde la elección hasta la entrega en tu hogar.
-        </p>
-        <Link className="cta-secondary" to="/contacto">
-          Agenda una asesoría
-        </Link>
+      <section id="inventory" className="space-y-8">
+        <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+          <div>
+            <span className="inline-flex rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold uppercase tracking-widest text-slate-600">
+              Catálogo destacado
+            </span>
+            <h2 className="mt-3 text-3xl font-semibold text-slate-900">Tu próximo vehículo está aquí</h2>
+            <p className="max-w-2xl text-slate-600">
+              Seleccionamos los modelos mejor evaluados por nuestros clientes para que vivas una experiencia de compra confiable y con respaldo.
+            </p>
+          </div>
+        </div>
+
+        {featuredVehicles.length > 0 ? (
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {featuredVehicles.map((vehicle) => (
+              <VehicleCard key={vehicle.id} vehicle={vehicle} onSelect={setSelectedVehicle} />
+            ))}
+          </div>
+        ) : (
+          <div className="rounded-3xl border border-slate-200 bg-white p-8 text-center text-slate-600 shadow-brand-md">
+            <p>
+              Aún no hay vehículos destacados. Agrega unidades desde{' '}
+              <Link to="/ingresar-vehiculo" className="font-semibold text-brand-600 hover:underline">
+                el formulario de inventario
+              </Link>{' '}
+              para mostrarlas aquí.
+            </p>
+          </div>
+        )}
       </section>
 
-      <section id="inventory" className="inventory">
-        <h2 className="section-title">Catálogo destacado</h2>
-        <div className="inventory__grid">
-          {featuredVehicles.map((vehicle) => {
-            const { name, category, price, autonomy, highlight, image, imageAlt } =
-              vehicle
-
-            return (
-              <article key={name} className="vehicle-card">
-                <figure className="vehicle-card__media">
-                  <img src={image} alt={imageAlt} className="vehicle-card__image" />
-                </figure>
-                <header>
-                  <h3>{name}</h3>
-                  <span className="vehicle-card__category">{category}</span>
-                </header>
-                <p className="vehicle-card__price">{price}</p>
-                <p className="vehicle-card__autonomy">{autonomy}</p>
-                <p className="vehicle-card__highlight">{highlight}</p>
-                <button
-                  type="button"
-                  className="vehicle-card__button"
-                  onClick={() => setSelectedVehicle(vehicle)}
-                >
-                  Ver opciones de financiamiento
-                </button>
-              </article>
-            )
-          })}
+      <section className="rounded-3xl bg-slate-900 p-8 text-white shadow-brand-lg sm:p-12">
+        <div className="flex flex-col gap-10 md:flex-row md:items-center md:justify-between">
+          <div className="max-w-2xl space-y-4">
+            <span className="inline-flex rounded-full bg-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.3em] text-brand-200">
+              Beneficios NovaDrive
+            </span>
+            <h2 className="text-3xl font-semibold sm:text-4xl">Acompañamos todo tu viaje de compra</h2>
+            <p className="text-slate-200">
+              Desde la simulación de crédito hasta la entrega en tu hogar, nuestro equipo te apoya con certificaciones técnicas, convenios exclusivos y acompañamiento personalizado.
+            </p>
+            <ul className="space-y-3 text-slate-200">
+              <li className="flex items-start gap-3">
+                <span className="mt-1 inline-flex h-2.5 w-2.5 rounded-full bg-brand-300" />
+                Convenios con las principales financieras y bancos del país.
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="mt-1 inline-flex h-2.5 w-2.5 rounded-full bg-brand-300" />
+                Taller certificado con garantía de mantenimientos programados por 5 años.
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="mt-1 inline-flex h-2.5 w-2.5 rounded-full bg-brand-300" />
+                Seguro full cobertura con asistencia en ruta desde $18.990 mensuales.
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="mt-1 inline-flex h-2.5 w-2.5 rounded-full bg-brand-300" />
+                Entrega de vehículos eléctricos con instalación domiciliaria de cargador incluida.
+              </li>
+            </ul>
+          </div>
+          <div className="rounded-3xl border border-white/20 bg-white/10 p-6 text-brand-100">
+            <h3 className="text-lg font-semibold uppercase tracking-[0.3em] text-brand-50">
+              Accede a beneficios exclusivos
+            </h3>
+            <p className="mt-4 text-sm text-slate-200">
+              Agenda una asesoría y recibe orientación personalizada para elegir el modelo y financiamiento ideal para tu estilo de vida.
+            </p>
+            <Link
+              to="/contacto"
+              className="mt-6 mx-auto inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-slate-900 transition hover:bg-slate-100"
+            >
+              Agenda una asesoría
+            </Link>
+          </div>
         </div>
       </section>
 
-      <section className="services">
-        <h2 className="section-title">Beneficios NovaDrive</h2>
-        <ul className="services__list">
-          <li>Convenios con las principales financieras y bancos del país.</li>
-          <li>
-            Taller certificado con garantía de mantenimientos programados por 5
-            años.
-          </li>
-          <li>
-            Seguro full cobertura con asistencia en ruta desde $18.990 mensuales.
-          </li>
-          <li>
-            Entrega de vehículos eléctricos con instalación domiciliaria de
-            cargador incluida.
-          </li>
-        </ul>
-      </section>
-
-      <FinanceModal
-        vehicle={selectedVehicle}
-        onClose={() => setSelectedVehicle(null)}
-      />
+      <FinanceModal vehicle={selectedVehicle} onClose={() => setSelectedVehicle(null)} />
     </div>
   )
 }
