@@ -5,5 +5,5 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   // Necesario para que los assets funcionen al desplegar en GitHub Pages.
-  base: '/Liliana_Tapia_PFY2202_HTML_Semana1/',
+  base: '/Liliana_Tapia_PFY2202_Semana2/',
 })
