@@ -1,5 +1,5 @@
 /* eslint react-refresh/only-export-components: ["error", { allowExportNames: ["useVehicles"] }] */
-import { createContext, useContext, useMemo, useState } from 'react'
+import { createContext, useCallback, useContext, useMemo, useState } from 'react'
 import auto1Image from '../assets/img/Auto1.jpg'
 import auto2Image from '../assets/img/Auto2.webp'
 import auto3Image from '../assets/img/Auto3.jpg'
@@ -134,12 +134,86 @@ const createVehicleRecord = (vehicle) => {
 
 export function VehicleProvider({ children }) {
   const [vehicles, setVehicles] = useState(initialVehicles.map(createVehicleRecord))
+  const [shortlist, setShortlist] = useState([])
 
-  const addVehicle = (vehicleData) => {
+  const addVehicle = useCallback((vehicleData) => {
     setVehicles((prev) => [...prev, createVehicleRecord({ ...vehicleData, isFeatured: false })])
-  }
+  }, [])
 
-  const value = useMemo(() => ({ vehicles, addVehicle }), [vehicles])
+  const markAsPossiblePurchase = useCallback((vehicleId) => {
+    setVehicles((prevVehicles) => {
+      const targetVehicle = prevVehicles.find((vehicle) => vehicle.id === vehicleId)
+      if (!targetVehicle) {
+        return prevVehicles
+      }
+
+      setShortlist((prevShortlist) => {
+        if (prevShortlist.some((vehicle) => vehicle.id === vehicleId)) {
+          return prevShortlist
+        }
+        return [...prevShortlist, targetVehicle]
+      })
+
+      return prevVehicles.filter((vehicle) => vehicle.id !== vehicleId)
+    })
+  }, [])
+
+  const removeFromPossiblePurchases = useCallback((vehicleId) => {
+    setShortlist((prevShortlist) => {
+      const targetVehicle = prevShortlist.find((vehicle) => vehicle.id === vehicleId)
+      if (!targetVehicle) {
+        return prevShortlist
+      }
+
+      setVehicles((prevVehicles) => {
+        if (prevVehicles.some((vehicle) => vehicle.id === vehicleId)) {
+          return prevVehicles
+        }
+        return [...prevVehicles, targetVehicle]
+      })
+
+      return prevShortlist.filter((vehicle) => vehicle.id !== vehicleId)
+    })
+  }, [])
+
+  const isVehicleShortlisted = useCallback(
+    (vehicleId) => shortlist.some((vehicle) => vehicle.id === vehicleId),
+    [shortlist],
+  )
+
+  const getVehicleById = useCallback(
+    (vehicleId) => {
+      const fromInventory = vehicles.find((vehicle) => vehicle.id === vehicleId)
+      if (fromInventory) return fromInventory
+      return shortlist.find((vehicle) => vehicle.id === vehicleId) ?? null
+    },
+    [vehicles, shortlist],
+  )
+
+  const allVehicles = useMemo(() => [...vehicles, ...shortlist], [vehicles, shortlist])
+
+  const value = useMemo(
+    () => ({
+      vehicles,
+      shortlist,
+      allVehicles,
+      addVehicle,
+      markAsPossiblePurchase,
+      removeFromPossiblePurchases,
+      isVehicleShortlisted,
+      getVehicleById,
+    }),
+    [
+      vehicles,
+      shortlist,
+      allVehicles,
+      addVehicle,
+      markAsPossiblePurchase,
+      removeFromPossiblePurchases,
+      isVehicleShortlisted,
+      getVehicleById,
+    ],
+  )
 
   return <VehicleContext.Provider value={value}>{children}</VehicleContext.Provider>
 }

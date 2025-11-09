@@ -4,6 +4,8 @@ import About from './pages/About.jsx'
 import Contact from './pages/Contact.jsx'
 import Inventory from './pages/Inventory.jsx'
 import AddVehicle from './pages/AddVehicle.jsx'
+import PossiblePurchases from './pages/PossiblePurchases.jsx'
+import VehicleDetail from './pages/VehicleDetail.jsx'
 import FooterNav from './components/FooterNav.jsx'
 import HeaderNav from './components/HeaderNav.jsx'
 
@@ -20,6 +22,8 @@ function App() {
             <Route path="/contacto" element={<Contact />} />
             <Route path="/inventario" element={<Inventory />} />
             <Route path="/ingresar-vehiculo" element={<AddVehicle />} />
+            <Route path="/vehiculo/:vehicleId" element={<VehicleDetail />} />
+            <Route path="/posibles-compras" element={<PossiblePurchases />} />
           </Routes>
         </div>
       </main>

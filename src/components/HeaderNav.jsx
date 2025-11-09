@@ -7,6 +7,7 @@ const navLinks = [
   { to: '/contacto', label: 'Contacto' },
   { to: '/ingresar-vehiculo', label: 'Ingresar vehículo' },
   { to: '/inventario', label: 'Inventario' },
+  { to: '/posibles-compras', label: 'Posibles compras' },
 ]
 
 function HeaderNav() {

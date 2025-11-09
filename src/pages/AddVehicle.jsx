@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { VEHICLE_CATEGORIES, VEHICLE_MODELS } from '../constants/vehicleOptions.js'
 import { useVehicles } from '../context/VehicleContext.jsx'
 
 const initialFormState = {
@@ -21,6 +22,17 @@ function AddVehicle() {
 
   const handleChange = (event) => {
     const { name, value } = event.target
+
+    if (name === 'model') {
+      const selectedModel = VEHICLE_MODELS.find((option) => option.value === value)
+      setFormData((prev) => ({
+        ...prev,
+        model: value,
+        brand: selectedModel?.brand ?? prev.brand,
+      }))
+      return
+    }
+
     setFormData((prev) => ({ ...prev, [name]: value }))
   }
 
@@ -128,15 +140,20 @@ function AddVehicle() {
             <label className="block text-sm font-semibold text-slate-800" htmlFor="model">
               Modelo *
             </label>
-            <input
+            <select
               id="model"
               name="model"
-              type="text"
               value={formData.model}
               onChange={handleChange}
               className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-slate-900 outline-none transition focus:border-brand-400 focus:bg-white focus:ring-2 focus:ring-brand-200"
-              placeholder="Ej. Aria EV"
-            />
+            >
+              <option value="">Selecciona un modelo</option>
+              {VEHICLE_MODELS.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </select>
             {errors.model && <span className="text-sm text-rose-600">{errors.model}</span>}
           </div>
 
@@ -144,15 +161,20 @@ function AddVehicle() {
             <label className="block text-sm font-semibold text-slate-800" htmlFor="category">
               Categoría *
             </label>
-            <input
+            <select
               id="category"
               name="category"
-              type="text"
               value={formData.category}
               onChange={handleChange}
               className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-slate-900 outline-none transition focus:border-brand-400 focus:bg-white focus:ring-2 focus:ring-brand-200"
-              placeholder="SUV, Sedán, Pickup..."
-            />
+            >
+              <option value="">Selecciona una categoría</option>
+              {VEHICLE_CATEGORIES.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </select>
             {errors.category && <span className="text-sm text-rose-600">{errors.category}</span>}
           </div>
 

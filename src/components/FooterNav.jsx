@@ -5,6 +5,7 @@ const navItems = [
   { to: '/', label: 'Inicio' },
   { to: '/quienes-somos', label: 'Quiénes' },
   { to: '/inventario', label: 'Inventario' },
+  { to: '/posibles-compras', label: 'Posibles' },
   { to: '/ingresar-vehiculo', label: 'Ingresar' },
 ]
 

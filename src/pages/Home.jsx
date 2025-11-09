@@ -6,12 +6,12 @@ import VehicleCard from '../components/VehicleCard.jsx'
 import { useVehicles } from '../context/VehicleContext.jsx'
 
 function Home() {
-  const { vehicles } = useVehicles()
+  const { allVehicles } = useVehicles()
   const [selectedVehicle, setSelectedVehicle] = useState(null)
 
   const featuredVehicles = useMemo(
-    () => vehicles.filter((vehicle) => vehicle.isFeatured).slice(0, 6),
-    [vehicles],
+    () => allVehicles.filter((vehicle) => vehicle.isFeatured).slice(0, 6),
+    [allVehicles],
   )
 
   return (

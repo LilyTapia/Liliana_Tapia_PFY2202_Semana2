@@ -1,14 +1,72 @@
+import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
+import InventoryFilters from '../components/InventoryFilters.jsx'
+import InventoryTable from '../components/InventoryTable.jsx'
 import { useVehicles } from '../context/VehicleContext.jsx'
 
-const currencyFormatter = new Intl.NumberFormat('es-CL', {
-  style: 'currency',
-  currency: 'CLP',
-  minimumFractionDigits: 0,
-})
+const initialFilters = {
+  brand: 'all',
+  category: 'all',
+  minPrice: '',
+  maxPrice: '',
+  minYear: '',
+  maxYear: '',
+}
 
 function Inventory() {
   const { vehicles } = useVehicles()
+  const [filters, setFilters] = useState(initialFilters)
+
+  const brandOptions = useMemo(
+    () => Array.from(new Set(vehicles.map((vehicle) => vehicle.brand))).sort(),
+    [vehicles],
+  )
+  const categoryOptions = useMemo(
+    () => Array.from(new Set(vehicles.map((vehicle) => vehicle.category))).sort(),
+    [vehicles],
+  )
+
+  const filteredVehicles = useMemo(() => {
+    return vehicles.filter((vehicle) => {
+      if (filters.brand !== 'all' && vehicle.brand !== filters.brand) {
+        return false
+      }
+      if (filters.category !== 'all' && vehicle.category !== filters.category) {
+        return false
+      }
+
+      const minPrice = Number(filters.minPrice)
+      if (!Number.isNaN(minPrice) && minPrice > 0 && vehicle.price < minPrice) {
+        return false
+      }
+
+      const maxPrice = Number(filters.maxPrice)
+      if (!Number.isNaN(maxPrice) && maxPrice > 0 && vehicle.price > maxPrice) {
+        return false
+      }
+
+      const minYear = Number(filters.minYear)
+      if (!Number.isNaN(minYear) && minYear >= 2000 && vehicle.year < minYear) {
+        return false
+      }
+
+      const maxYear = Number(filters.maxYear)
+      if (!Number.isNaN(maxYear) && maxYear >= 2000 && vehicle.year > maxYear) {
+        return false
+      }
+
+      return true
+    })
+  }, [vehicles, filters])
+
+  const handleFilterChange = (event) => {
+    const { name, value } = event.target
+    setFilters((prev) => ({ ...prev, [name]: value }))
+  }
+
+  const handleResetFilters = () => {
+    setFilters(initialFilters)
+  }
 
   return (
     <div className="mx-auto w-full max-w-6xl space-y-6">
@@ -33,65 +91,27 @@ function Inventory() {
         </Link>
       </header>
 
-      <div className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-brand-md">
-        <div className="overflow-x-auto">
-          <table className="min-w-full divide-y divide-slate-200">
-            <thead className="bg-slate-50">
-              <tr>
-                <th scope="col" className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-slate-500 sm:px-6">
-                  Marca
-                </th>
-                <th scope="col" className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-slate-500 sm:px-6">
-                  Modelo
-                </th>
-                <th scope="col" className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-slate-500 sm:px-6">
-                  Categoría
-                </th>
-                <th scope="col" className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-slate-500 sm:px-6">
-                  Año
-                </th>
-                <th scope="col" className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-slate-500 sm:px-6">
-                  Precio
-                </th>
-                <th scope="col" className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-slate-500 sm:px-6">
-                  Descripción
-                </th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-slate-200 bg-white">
-              {vehicles.map((vehicle) => (
-                <tr key={vehicle.id} className="hover:bg-slate-50">
-                  <td className="px-4 py-4 text-sm font-semibold text-slate-900 sm:px-6">
-                    {vehicle.brand}
-                  </td>
-                  <td className="px-4 py-4 text-sm text-slate-700 sm:px-6">
-                    {vehicle.model}
-                  </td>
-                  <td className="px-4 py-4 text-sm text-slate-600 sm:px-6">
-                    {vehicle.category}
-                  </td>
-                  <td className="px-4 py-4 text-sm text-slate-600 sm:px-6">
-                    {vehicle.year}
-                  </td>
-                  <td className="px-4 py-4 text-sm font-semibold text-brand-600 sm:px-6">
-                    {currencyFormatter.format(vehicle.price)}
-                  </td>
-                  <td className="px-4 py-4 text-sm text-slate-600 sm:px-6">
-                    {vehicle.description}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-        <footer className="flex flex-col gap-2 border-t border-slate-200 bg-slate-50 px-6 py-4 text-sm text-slate-500 sm:flex-row sm:items-center sm:justify-between">
-          <span>
-            Total de vehículos registrados:
-            <strong className="ml-1 text-slate-800">{vehicles.length}</strong>
-          </span>
-          <span>Actualizado automáticamente con la información del formulario.</span>
-        </footer>
-      </div>
+      <InventoryFilters
+        filters={filters}
+        onChange={handleFilterChange}
+        onReset={handleResetFilters}
+        brandOptions={brandOptions}
+        categoryOptions={categoryOptions}
+      />
+
+      <InventoryTable
+        vehicles={filteredVehicles}
+        totalCount={vehicles.length}
+        emptyMessage="No hay vehículos que coincidan con los filtros seleccionados."
+        renderActions={(vehicle) => (
+          <Link
+            to={`/vehiculo/${vehicle.id}`}
+            className="inline-flex items-center gap-2 rounded-full border border-brand-500 px-4 py-2 text-xs font-semibold text-brand-600 transition hover:bg-brand-50"
+          >
+            Ver detalle
+          </Link>
+        )}
+      />
     </div>
   )
 }

@@ -1,8 +1,5 @@
-const currencyFormatter = new Intl.NumberFormat('es-CL', {
-  style: 'currency',
-  currency: 'CLP',
-  minimumFractionDigits: 0,
-})
+import { Link } from 'react-router-dom'
+import { formatCurrencyCLP } from '../utils/currency.js'
 
 function VehicleCard({ vehicle, onSelect }) {
   const hasImage = Boolean(vehicle.image)
@@ -34,22 +31,30 @@ function VehicleCard({ vehicle, onSelect }) {
         </header>
 
         <p className="text-lg font-semibold text-brand-600">
-          {currencyFormatter.format(vehicle.price)}
+          {formatCurrencyCLP(vehicle.price)}
         </p>
         {vehicle.autonomy && <p className="text-sm text-slate-600">{vehicle.autonomy}</p>}
         {vehicle.highlight || vehicle.description ? (
           <p className="text-sm text-slate-600">{vehicle.highlight ?? vehicle.description}</p>
         ) : null}
 
-        {hasFinance && (
-          <button
-            type="button"
-            className="mt-auto inline-flex items-center justify-center gap-2 rounded-full bg-brand-600 px-5 py-3 text-sm font-semibold text-white transition hover:bg-brand-700 focus:outline-none focus:ring-4 focus:ring-brand-200"
-            onClick={() => onSelect(vehicle)}
+        <div className="mt-auto flex flex-col gap-3">
+          {hasFinance && (
+            <button
+              type="button"
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-brand-600 px-5 py-3 text-sm font-semibold text-white transition hover:bg-brand-700 focus:outline-none focus:ring-4 focus:ring-brand-200"
+              onClick={() => onSelect(vehicle)}
+            >
+              Ver opciones de financiamiento
+            </button>
+          )}
+          <Link
+            to={`/vehiculo/${vehicle.id}`}
+            className="inline-flex items-center justify-center gap-2 rounded-full border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-600 transition hover:border-brand-400 hover:text-brand-600"
           >
-            Ver opciones de financiamiento
-          </button>
-        )}
+            Ver detalle
+          </Link>
+        </div>
       </div>
     </article>
   )
