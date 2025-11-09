@@ -32,3 +32,65 @@
     @apply min-h-screen;
   }
 }
+
+@layer components {
+  .btn-shell {
+    @apply inline-flex items-center justify-center gap-2 rounded-full text-sm font-semibold transition focus:outline-none;
+  }
+
+  .btn-shell-lg {
+    @apply btn-shell px-5 py-3;
+  }
+
+  .btn-shell-sm {
+    @apply btn-shell px-4 py-2 text-sm;
+  }
+
+  .btn-primary {
+    @apply btn-shell-lg bg-brand-600 text-white hover:bg-brand-700 focus:ring-4 focus:ring-brand-200;
+  }
+
+  .btn-dark {
+    @apply btn-shell-lg bg-slate-900 text-white hover:bg-slate-800 focus:ring-4 focus:ring-slate-300;
+  }
+
+  .btn-outline {
+    @apply btn-shell-lg border border-slate-300 text-slate-600 hover:border-brand-400 hover:text-brand-600 focus:ring-4 focus:ring-brand-100;
+  }
+
+  .btn-outline-sm {
+    @apply btn-shell-sm border border-slate-300 text-slate-600 hover:border-brand-400 hover:text-brand-600 focus:ring-4 focus:ring-brand-100;
+  }
+
+  .btn-brand-outline {
+    @apply btn-shell-lg border border-brand-500 text-brand-600 hover:bg-brand-50 focus:ring-4 focus:ring-brand-100;
+  }
+
+  .btn-brand-outline-sm {
+    @apply btn-shell-sm border border-brand-500 text-xs font-semibold text-brand-600 hover:bg-brand-50 focus:ring-4 focus:ring-brand-100;
+  }
+
+  .btn-emerald {
+    @apply btn-shell-lg bg-emerald-600 text-white hover:bg-emerald-700 focus:ring-4 focus:ring-emerald-200;
+  }
+
+  .btn-emerald-outline {
+    @apply btn-shell-lg border border-emerald-600 text-emerald-700 hover:bg-emerald-600 hover:text-white focus:ring-4 focus:ring-emerald-200;
+  }
+
+  .btn-emerald-outline-sm {
+    @apply btn-shell-sm border border-emerald-600 text-xs font-semibold text-emerald-700 hover:bg-emerald-600 hover:text-white focus:ring-4 focus:ring-emerald-200;
+  }
+
+  .btn-danger-outline-sm {
+    @apply btn-shell-sm border border-rose-300 text-xs font-semibold text-rose-600 hover:bg-rose-50 focus:ring-4 focus:ring-rose-100;
+  }
+
+  .form-field {
+    @apply w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-slate-900 outline-none transition focus:border-brand-400 focus:bg-white focus:ring-2 focus:ring-brand-200;
+  }
+
+  .form-textarea {
+    @apply form-field min-h-[8rem];
+  }
+}

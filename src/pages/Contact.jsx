@@ -48,7 +48,7 @@ function Contact() {
                 id="contact-name"
                 type="text"
                 name="name"
-                className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-slate-900 outline-none transition focus:border-brand-400 focus:ring-2 focus:ring-brand-200"
+                className="form-field"
                 placeholder="Ej. Camila Pérez"
               />
             </label>
@@ -59,7 +59,7 @@ function Contact() {
                 id="contact-email"
                 type="email"
                 name="email"
-                className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-slate-900 outline-none transition focus:border-brand-400 focus:ring-2 focus:ring-brand-200"
+                className="form-field"
                 placeholder="Ej. camila@email.com"
               />
             </label>
@@ -70,7 +70,7 @@ function Contact() {
                 id="contact-model"
                 type="text"
                 name="model"
-                className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-slate-900 outline-none transition focus:border-brand-400 focus:ring-2 focus:ring-brand-200"
+                className="form-field"
                 placeholder="SUV, Sedán, Pickup..."
               />
             </label>
@@ -81,16 +81,13 @@ function Contact() {
                 id="contact-message"
                 name="message"
                 rows="4"
-                className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-slate-900 outline-none transition focus:border-brand-400 focus:ring-2 focus:ring-brand-200"
+                className="form-textarea"
                 placeholder="Cuéntanos en qué etapa del proceso te encuentras"
               />
             </label>
           </div>
 
-          <button
-            type="submit"
-            className="mt-6 inline-flex items-center gap-2 rounded-full bg-brand-600 px-6 py-3 text-sm font-semibold text-white transition hover:bg-brand-700 focus:outline-none focus:ring-4 focus:ring-brand-200"
-          >
+          <button type="submit" className="btn-primary mt-6">
             Enviar solicitud
           </button>
         </form>

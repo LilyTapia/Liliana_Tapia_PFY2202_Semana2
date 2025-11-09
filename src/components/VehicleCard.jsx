@@ -40,18 +40,11 @@ function VehicleCard({ vehicle, onSelect }) {
 
         <div className="mt-auto flex flex-col gap-3">
           {hasFinance && (
-            <button
-              type="button"
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-brand-600 px-5 py-3 text-sm font-semibold text-white transition hover:bg-brand-700 focus:outline-none focus:ring-4 focus:ring-brand-200"
-              onClick={() => onSelect(vehicle)}
-            >
+            <button type="button" className="btn-primary" onClick={() => onSelect(vehicle)}>
               Ver opciones de financiamiento
             </button>
           )}
-          <Link
-            to={`/vehiculo/${vehicle.id}`}
-            className="inline-flex items-center justify-center gap-2 rounded-full border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-600 transition hover:border-brand-400 hover:text-brand-600"
-          >
+          <Link to={`/vehiculo/${vehicle.id}`} className="btn-outline">
             Ver detalle
           </Link>
         </div>

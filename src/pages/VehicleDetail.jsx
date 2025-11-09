@@ -17,10 +17,7 @@ function VehicleDetail() {
         <p className="mt-2 text-sm text-rose-600">
           Es posible que haya sido removido del inventario. Revisa el listado actualizado para confirmar.
         </p>
-        <Link
-          to="/inventario"
-          className="mt-6 inline-flex items-center gap-2 rounded-full bg-brand-600 px-5 py-2 text-sm font-semibold text-white transition hover:bg-brand-700"
-        >
+        <Link to="/inventario" className="btn-primary mt-6">
           Volver al inventario
         </Link>
       </div>
@@ -39,11 +36,7 @@ function VehicleDetail() {
 
   return (
     <div className="mx-auto flex w-full max-w-5xl flex-col gap-6">
-      <button
-        type="button"
-        onClick={() => navigate(-1)}
-        className="inline-flex w-max items-center gap-2 rounded-full border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-600 transition hover:border-brand-400 hover:text-brand-600"
-      >
+      <button type="button" onClick={() => navigate(-1)} className="btn-outline-sm w-max">
         ← Volver
       </button>
 
@@ -84,24 +77,14 @@ function VehicleDetail() {
             <button
               type="button"
               onClick={handleToggleShortlist}
-              className={`inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold transition ${
-                isShortlisted
-                  ? 'bg-emerald-100 text-emerald-700 hover:bg-emerald-200'
-                  : 'bg-brand-600 text-white hover:bg-brand-700'
-              }`}
+              className={isShortlisted ? 'btn-emerald-outline' : 'btn-primary'}
             >
               {isShortlisted ? 'Quitar de posibles compras' : 'Marcar como posible compra'}
             </button>
-            <Link
-              to="/inventario"
-              className="inline-flex items-center gap-2 rounded-full border border-slate-300 px-6 py-3 text-sm font-semibold text-slate-600 transition hover:border-brand-400 hover:text-brand-600"
-            >
+            <Link to="/inventario" className="btn-outline">
               Ver inventario
             </Link>
-            <Link
-              to="/posibles-compras"
-              className="inline-flex items-center gap-2 rounded-full border border-slate-300 px-6 py-3 text-sm font-semibold text-slate-600 transition hover:border-brand-400 hover:text-brand-600"
-            >
+            <Link to="/posibles-compras" className="btn-outline">
               Ver posibles compras
             </Link>
           </div>

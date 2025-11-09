@@ -101,14 +101,11 @@ function AddVehicle() {
             <button
               type="button"
               onClick={handleViewInventory}
-              className="inline-flex items-center gap-2 rounded-full bg-emerald-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-emerald-700"
+              className="btn-emerald"
             >
               Ver inventario
             </button>
-            <Link
-              className="inline-flex items-center gap-2 rounded-full border border-emerald-600 px-4 py-2 text-sm font-semibold text-emerald-700 transition hover:bg-emerald-600 hover:text-white"
-              to="/"
-            >
+            <Link className="btn-emerald-outline-sm" to="/">
               Volver al inicio
             </Link>
           </div>
@@ -130,7 +127,7 @@ function AddVehicle() {
               type="text"
               value={formData.brand}
               onChange={handleChange}
-              className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-slate-900 outline-none transition focus:border-brand-400 focus:bg-white focus:ring-2 focus:ring-brand-200"
+              className="form-field"
               placeholder="Ej. Zenith Motors"
             />
             {errors.brand && <span className="text-sm text-rose-600">{errors.brand}</span>}
@@ -145,7 +142,7 @@ function AddVehicle() {
               name="model"
               value={formData.model}
               onChange={handleChange}
-              className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-slate-900 outline-none transition focus:border-brand-400 focus:bg-white focus:ring-2 focus:ring-brand-200"
+              className="form-field"
             >
               <option value="">Selecciona un modelo</option>
               {VEHICLE_MODELS.map((option) => (
@@ -166,7 +163,7 @@ function AddVehicle() {
               name="category"
               value={formData.category}
               onChange={handleChange}
-              className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-slate-900 outline-none transition focus:border-brand-400 focus:bg-white focus:ring-2 focus:ring-brand-200"
+              className="form-field"
             >
               <option value="">Selecciona una categoría</option>
               {VEHICLE_CATEGORIES.map((option) => (
@@ -189,7 +186,7 @@ function AddVehicle() {
               min="0"
               value={formData.price}
               onChange={handleChange}
-              className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-slate-900 outline-none transition focus:border-brand-400 focus:bg-white focus:ring-2 focus:ring-brand-200"
+              className="form-field"
               placeholder="Ej. 25990000"
             />
             {errors.price && <span className="text-sm text-rose-600">{errors.price}</span>}
@@ -206,7 +203,7 @@ function AddVehicle() {
               min="2000"
               value={formData.year}
               onChange={handleChange}
-              className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-slate-900 outline-none transition focus:border-brand-400 focus:bg-white focus:ring-2 focus:ring-brand-200"
+              className="form-field"
               placeholder="Ej. 2025"
             />
             {errors.year && <span className="text-sm text-rose-600">{errors.year}</span>}
@@ -222,7 +219,7 @@ function AddVehicle() {
               type="text"
               value={formData.autonomy}
               onChange={handleChange}
-              className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-slate-900 outline-none transition focus:border-brand-400 focus:bg-white focus:ring-2 focus:ring-brand-200"
+              className="form-field"
               placeholder="Ej. 450 km WLTP, 1.2 toneladas de carga..."
             />
           </div>
@@ -238,7 +235,7 @@ function AddVehicle() {
             rows="4"
             value={formData.description}
             onChange={handleChange}
-            className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-slate-900 outline-none transition focus:border-brand-400 focus:bg-white focus:ring-2 focus:ring-brand-200"
+            className="form-textarea"
             placeholder="Resume los beneficios y la propuesta de valor del vehículo."
           />
           {errors.description && (
@@ -253,7 +250,7 @@ function AddVehicle() {
           </p>
           <button
             type="submit"
-            className="inline-flex items-center gap-2 rounded-full bg-brand-600 px-6 py-3 text-sm font-semibold text-white transition hover:bg-brand-700 focus:outline-none focus:ring-4 focus:ring-brand-200"
+            className="btn-primary"
           >
             Guardar vehículo
           </button>

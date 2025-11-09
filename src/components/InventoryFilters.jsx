@@ -17,11 +17,7 @@ function InventoryFilters({
             Combina categoría, marca, precio y año para encontrar el vehículo indicado sin perder el inventario original.
           </p>
         </div>
-        <button
-          type="button"
-          onClick={onReset}
-          className="inline-flex items-center gap-2 self-start rounded-full border border-slate-300 px-5 py-2.5 text-sm font-semibold text-slate-600 transition hover:border-brand-400 hover:text-brand-600"
-        >
+        <button type="button" onClick={onReset} className="btn-outline-sm self-start">
           Limpiar filtros
         </button>
       </div>
@@ -29,12 +25,7 @@ function InventoryFilters({
       <form className="mt-6 grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
         <label className="flex flex-col gap-2 text-sm font-semibold text-slate-700">
           Marca
-          <select
-            name="brand"
-            value={filters.brand}
-            onChange={onChange}
-            className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm text-slate-900 outline-none transition focus:border-brand-400 focus:bg-white focus:ring-2 focus:ring-brand-200"
-          >
+          <select name="brand" value={filters.brand} onChange={onChange} className="form-field">
             <option value="all">Todas</option>
             {brandOptions.map((brand) => (
               <option key={brand} value={brand}>
@@ -46,12 +37,7 @@ function InventoryFilters({
 
         <label className="flex flex-col gap-2 text-sm font-semibold text-slate-700">
           Categoría
-          <select
-            name="category"
-            value={filters.category}
-            onChange={onChange}
-            className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm text-slate-900 outline-none transition focus:border-brand-400 focus:bg-white focus:ring-2 focus:ring-brand-200"
-          >
+          <select name="category" value={filters.category} onChange={onChange} className="form-field">
             <option value="all">Todas</option>
             {categoryOptions.map((category) => (
               <option key={category} value={category}>
@@ -70,7 +56,7 @@ function InventoryFilters({
             value={filters.minPrice}
             onChange={onChange}
             placeholder="Ej. 20000000"
-            className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm text-slate-900 outline-none transition focus:border-brand-400 focus:bg-white focus:ring-2 focus:ring-brand-200"
+            className="form-field"
           />
         </label>
 
@@ -83,7 +69,7 @@ function InventoryFilters({
             value={filters.maxPrice}
             onChange={onChange}
             placeholder="Ej. 45000000"
-            className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm text-slate-900 outline-none transition focus:border-brand-400 focus:bg-white focus:ring-2 focus:ring-brand-200"
+            className="form-field"
           />
         </label>
 
@@ -96,7 +82,7 @@ function InventoryFilters({
             value={filters.minYear}
             onChange={onChange}
             placeholder="Ej. 2020"
-            className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm text-slate-900 outline-none transition focus:border-brand-400 focus:bg-white focus:ring-2 focus:ring-brand-200"
+            className="form-field"
           />
         </label>
 
@@ -109,7 +95,7 @@ function InventoryFilters({
             value={filters.maxYear}
             onChange={onChange}
             placeholder="Ej. 2024"
-            className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm text-slate-900 outline-none transition focus:border-brand-400 focus:bg-white focus:ring-2 focus:ring-brand-200"
+            className="form-field"
           />
         </label>
       </form>

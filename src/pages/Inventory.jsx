@@ -83,10 +83,7 @@ function Inventory() {
             datos se actualizan en tiempo real con la información del formulario.
           </p>
         </div>
-        <Link
-          className="inline-flex items-center justify-center gap-2 rounded-full bg-brand-600 px-6 py-3 text-sm font-semibold text-white transition hover:bg-brand-700 focus:outline-none focus:ring-4 focus:ring-brand-200"
-          to="/ingresar-vehiculo"
-        >
+        <Link className="btn-primary" to="/ingresar-vehiculo">
           Agregar nuevo vehículo
         </Link>
       </header>
@@ -104,10 +101,7 @@ function Inventory() {
         totalCount={vehicles.length}
         emptyMessage="No hay vehículos que coincidan con los filtros seleccionados."
         renderActions={(vehicle) => (
-          <Link
-            to={`/vehiculo/${vehicle.id}`}
-            className="inline-flex items-center gap-2 rounded-full border border-brand-500 px-4 py-2 text-xs font-semibold text-brand-600 transition hover:bg-brand-50"
-          >
+          <Link to={`/vehiculo/${vehicle.id}`} className="btn-brand-outline-sm">
             Ver detalle
           </Link>
         )}

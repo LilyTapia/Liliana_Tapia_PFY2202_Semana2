@@ -108,19 +108,11 @@ function FinanceModal({ vehicle, onClose }) {
           </div>
 
           <footer className="flex flex-wrap items-center justify-end gap-3 border-t border-slate-200 bg-slate-50 px-6 py-4">
-            <button
-              type="button"
-              className="inline-flex items-center gap-2 rounded-full border border-slate-300 px-5 py-2.5 text-sm font-semibold text-slate-600 transition hover:border-slate-400 hover:text-slate-800"
-              onClick={onClose}
-            >
+            <button type="button" className="btn-outline" onClick={onClose}>
               Cerrar
             </button>
             {financePlans.length > 0 && (
-              <button
-                type="button"
-                className="inline-flex items-center gap-2 rounded-full bg-brand-600 px-6 py-3 text-sm font-semibold text-white transition hover:bg-brand-700 focus:outline-none focus:ring-4 focus:ring-brand-200"
-                onClick={onClose}
-              >
+              <button type="button" className="btn-primary" onClick={onClose}>
                 Solicitar simulación personalizada
               </button>
             )}

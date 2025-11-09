@@ -23,16 +23,13 @@ function PossiblePurchases() {
         emptyMessage="Aún no marcas vehículos como posible compra."
         renderActions={(vehicle) => (
           <div className="flex flex-wrap gap-2">
-            <Link
-              to={`/vehiculo/${vehicle.id}`}
-              className="inline-flex items-center gap-2 rounded-full border border-brand-500 px-4 py-2 text-xs font-semibold text-brand-600 transition hover:bg-brand-50"
-            >
+            <Link to={`/vehiculo/${vehicle.id}`} className="btn-brand-outline-sm">
               Ver detalle
             </Link>
             <button
               type="button"
               onClick={() => removeFromPossiblePurchases(vehicle.id)}
-              className="inline-flex items-center gap-2 rounded-full border border-rose-300 px-4 py-2 text-xs font-semibold text-rose-600 transition hover:bg-rose-50"
+              className="btn-danger-outline-sm"
             >
               Quitar
             </button>

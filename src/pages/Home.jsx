@@ -38,15 +38,12 @@ function Home() {
               experta en cada etapa.
             </p>
             <div className="flex flex-wrap gap-4">
-              <a
-                href="#inventory"
-                className="inline-flex items-center gap-2 rounded-full bg-brand-500 px-6 py-3 text-sm font-semibold text-white transition hover:bg-brand-600"
-              >
+              <a href="#inventory" className="btn-primary">
                 Explorar catálogo
               </a>
               <Link
                 to="/ingresar-vehiculo"
-                className="inline-flex items-center gap-2 rounded-full border border-brand-500 px-6 py-3 text-sm font-semibold text-brand-600 transition hover:bg-brand-50"
+                className="btn-brand-outline"
               >
                 Gestionar inventario
               </Link>
@@ -67,7 +64,7 @@ function Home() {
           </div>
           <Link
             to="/inventario"
-            className="inline-flex items-center justify-center gap-2 rounded-full bg-slate-900 px-6 py-3 text-sm font-semibold text-white transition hover:bg-slate-800"
+            className="btn-dark"
           >
             Ver inventario
           </Link>
